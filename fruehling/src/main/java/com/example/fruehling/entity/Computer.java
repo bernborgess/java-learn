@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Computer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     String os; // "Linux" | "Windows" | "MacOS"

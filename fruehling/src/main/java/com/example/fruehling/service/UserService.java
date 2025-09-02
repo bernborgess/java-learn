@@ -3,7 +3,6 @@ package com.example.fruehling.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import com.example.fruehling.entity.Computer;
@@ -57,6 +56,10 @@ public class UserService {
         repository.save(user);
         computerRepository.save(computer);
 
+    }
+
+    public void save(User user) {
+        repository.save(user);
     }
 
 }
