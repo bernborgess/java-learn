@@ -3,6 +3,7 @@ package com.example.fruehling.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.fruehling.dto.UserDto;
 import com.example.fruehling.entity.User;
 import com.example.fruehling.service.UserService;
 
@@ -12,6 +13,7 @@ import static com.example.fruehling.controllers.UserController.URL;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,13 +49,26 @@ public class UserController {
         return ResponseEntity.ok("associated successfully");
     }
 
+    // TODO: Move to mapper
+    private UserDto toDto(User user) {
+
+        var computers = user.getComputers();
+        String os = computers.size() > 0 ? computers.getFirst().getOs() : "";
+
+        return new UserDto(
+                user.getId(),
+                user.getName(),
+                os);
+    }
+
     @GetMapping("/filter")
-    public ResponseEntity<List<User>> filter(
+    public ResponseEntity<List<UserDto>> filter(
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String os) {
         System.out.println("Filter by os " + os);
         var users = service.filter(id, name, os);
-        return ResponseEntity.ok(users);
+        List<UserDto> dtos = users.stream().map(this::toDto).collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 }
