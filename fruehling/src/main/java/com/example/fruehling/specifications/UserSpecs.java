@@ -10,8 +10,8 @@ public class UserSpecs {
         return (root, query, cb) -> cb.equal(root.get("id"), providedId);
     }
 
-    public static Specification<User> containsNome(String providedNome) {
-        return (root, query, cb) -> cb.like(cb.lower(root.get("nome")), "%" + providedNome.toLowerCase() + "%");
+    public static Specification<User> containsName(String providedName) {
+        return (root, query, cb) -> cb.like(cb.lower(root.get("name")), "%" + providedName.toLowerCase() + "%");
     }
 
     public static Specification<User> containsOs(String providedOs) {

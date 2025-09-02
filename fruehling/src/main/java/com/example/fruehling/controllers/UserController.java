@@ -50,10 +50,10 @@ public class UserController {
     @GetMapping("/filter")
     public ResponseEntity<List<User>> filter(
             @RequestParam(required = false) String id,
-            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String name,
             @RequestParam(required = false) String os) {
         System.out.println("Filter by os " + os);
-        var users = service.filter(id, nome, os);
+        var users = service.filter(id, name, os);
         return ResponseEntity.ok(users);
     }
 }

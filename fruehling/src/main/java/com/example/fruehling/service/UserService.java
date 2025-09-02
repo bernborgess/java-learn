@@ -40,7 +40,7 @@ public class UserService {
     public List<User> getUsers() {
         var users = repository.findAll();
         for (var user : users) {
-            System.out.println("> " + user.getNome());
+            System.out.println("> " + user.getName());
         }
         return users;
     }
@@ -51,7 +51,7 @@ public class UserService {
         Computer computer = computerRepository.findById(computerId)
                 .orElseThrow(() -> new EntityNotFoundException("Computer not found " + computerId));
 
-        System.out.println("user: " + user.getNome());
+        System.out.println("user: " + user.getName());
         System.out.println("computer : " + computer.getOs());
 
         user.getComputers().add(computer);
@@ -65,7 +65,7 @@ public class UserService {
         repository.save(user);
     }
 
-    public List<User> filter(String id, String nome, String os) {
+    public List<User> filter(String id, String name, String os) {
         System.out.println("Filtering on " + os);
         Specification<User> spec = Specification.unrestricted();
 
@@ -73,8 +73,8 @@ public class UserService {
             spec = spec.and(UserSpecs.hasId(id));
         }
 
-        if (StringUtils.hasLength(nome)) {
-            spec = spec.and(UserSpecs.containsNome(nome));
+        if (StringUtils.hasLength(name)) {
+            spec = spec.and(UserSpecs.containsName(name));
         }
 
         if (StringUtils.hasLength(os)) {

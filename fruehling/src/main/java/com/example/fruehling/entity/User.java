@@ -19,10 +19,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String nome;
+    String name;
 
-    public User(String nome) {
-        this.nome = nome;
+    public User(String name) {
+        this.name = name;
     }
 
     @OneToMany
