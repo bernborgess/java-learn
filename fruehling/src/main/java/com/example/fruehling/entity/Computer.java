@@ -15,7 +15,6 @@ public class Computer {
     String os; // "Linux" | "Windows" | "MacOS"
 
     public Computer(String os) {
-        this.id = 1L;
         this.os = os;
     }
 
