@@ -7,7 +7,6 @@ import com.example.fruehling.entity.User;
 import com.example.fruehling.service.UserService;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import static com.example.fruehling.controllers.UserController.URL;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -38,6 +37,14 @@ public class UserController {
         var users = service.getUsers();
         System.out.println("Hey!");
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/with-computer")
+    public ResponseEntity<String> associateUserWithComputer(
+            @RequestParam Long userId,
+            @RequestParam Long computerId) {
+        service.associate(userId, computerId);
+        return ResponseEntity.ok("associated successfully");
     }
 
 }
