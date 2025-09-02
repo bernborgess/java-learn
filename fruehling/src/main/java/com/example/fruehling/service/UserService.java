@@ -7,13 +7,20 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.example.fruehling.dto.UserDto;
 import com.example.fruehling.entity.Computer;
 import com.example.fruehling.entity.User;
 import com.example.fruehling.repository.ComputerRepository;
 import com.example.fruehling.repository.UserRepository;
 import com.example.fruehling.specifications.UserSpecs;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -25,6 +32,8 @@ public class UserService {
     private final UserRepository repository;
     @Autowired
     private final ComputerRepository computerRepository;
+    @Autowired
+    private final EntityManager entityManager;
 
     @Transactional
     public void newUser(String name) {
@@ -80,6 +89,26 @@ public class UserService {
         if (StringUtils.hasLength(os)) {
             spec = spec.and(UserSpecs.containsOs(os));
         }
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<UserDto> query = cb.createQuery(UserDto.class);
+        Root<User> root = query.from(User.class);
+
+        // Apply Predicate from Specification
+        var pred = spec.toPredicate(root, query, cb);
+        if (pred != null)
+            query.where(pred);
+
+        Join<User, Computer> computerJoin = root.join("computers", JoinType.LEFT);
+
+        cb.currentTime();
+
+        // Project to DTO
+        query.select(cb.construct(UserDto.class,
+                // Args
+                root.get("id"),
+                cb.concat(root.get("name"), "$"),
+                computerJoin.get("os")));
 
         return repository.findAll(spec);
     }
