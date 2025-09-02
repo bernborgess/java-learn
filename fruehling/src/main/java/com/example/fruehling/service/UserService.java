@@ -3,12 +3,15 @@ package com.example.fruehling.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.example.fruehling.entity.Computer;
 import com.example.fruehling.entity.User;
 import com.example.fruehling.repository.ComputerRepository;
 import com.example.fruehling.repository.UserRepository;
+import com.example.fruehling.specifications.UserSpecs;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -60,6 +63,25 @@ public class UserService {
 
     public void save(User user) {
         repository.save(user);
+    }
+
+    public List<User> filter(String id, String nome, String os) {
+        System.out.println("Filtering on " + os);
+        Specification<User> spec = Specification.unrestricted();
+
+        if (StringUtils.hasLength(id)) {
+            spec = spec.and(UserSpecs.hasId(id));
+        }
+
+        if (StringUtils.hasLength(nome)) {
+            spec = spec.and(UserSpecs.containsNome(nome));
+        }
+
+        if (StringUtils.hasLength(os)) {
+            spec = spec.and(UserSpecs.containsOs(os));
+        }
+
+        return repository.findAll(spec);
     }
 
 }
