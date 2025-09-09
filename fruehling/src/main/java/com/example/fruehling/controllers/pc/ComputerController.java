@@ -1,4 +1,4 @@
-package com.example.fruehling.controllers;
+package com.example.fruehling.controllers.pc;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.example.fruehling.controllers.ComputerController.URL;
+import static com.example.fruehling.controllers.pc.ComputerController.URL;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController

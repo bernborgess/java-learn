@@ -1,4 +1,4 @@
-package com.example.fruehling.controllers;
+package com.example.fruehling.controllers.user;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +9,7 @@ import com.example.fruehling.service.UserService;
 
 import lombok.AllArgsConstructor;
 
-import static com.example.fruehling.controllers.UserController.URL;
+import static com.example.fruehling.controllers.user.UserController.URL;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.util.List;
