@@ -1,4 +1,5 @@
 # 99 Java Problems :coffee:
+Following the [99 Java Problems](https://tech.tonyballantyne.com/java/99-java-problems/) course, to get a hold of java core before getting to mangled with Spring or other framework dependent details
 
 ## Loading the code
 - We can use the Java Shell for loading the code, in a command line just run:
@@ -10,6 +11,13 @@ $> $JAVA_HOME/bin/jshell
 jshell> /open lesson1.java
 ```
 - Check the functions were loaded with `/methods`:
-```bash
+```java
 jshell> /methods
+|    void main()
+|    void hello(String)
+|    double average(double,double)
+```
+> Alternatively you can directly pass the file, and jshell may by in PATH
+```bash
+$> jshell lesson1.java
 ```
