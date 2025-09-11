@@ -21,3 +21,6 @@ jshell> /methods
 ```bash
 $> jshell lesson1.java
 ```
+
+### Exceptions to the rule
+- Some problems require interactive input, like [2.7 Are we there yet?](./lesson2.java). In this case, just run the file such that the `main` function will invoke that code.

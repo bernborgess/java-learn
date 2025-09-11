@@ -1,8 +1,12 @@
 /*
  * 2: Loops
  */
+
+import java.util.Scanner;
+
 void main() {
     System.out.println("https://tech.tonyballantyne.com/2014/02/28/2-loops/");
+    areWeThereYet();
 }
 
 /*
@@ -23,6 +27,11 @@ void main() {
  * 11: 9
  * 12: 10
  */
+void oneToTen() {
+    for (int i = 1; i <= 10; i++) {
+        System.out.println(i);
+    }
+}
 
 /*
  * 2.2 Odd Numbers
@@ -42,6 +51,12 @@ void main() {
  * 11: 17
  * 12: 19
  */
+void oddNumbers() {
+    for (int i = 1; i <= 19; i += 2) {
+        System.out.println(i);
+    }
+}
+
 /*
  * 2.3 Square Numbers
  * Write a method that prints the square numbers up to 100
@@ -60,6 +75,11 @@ void main() {
  * 11: 81
  * 12: 100
  */
+void squares() {
+    for (int i = 1; i <= 10; i++) {
+        System.out.println(i * i);
+    }
+}
 
 /*
  * 2.4 Random Numbers
@@ -73,6 +93,14 @@ void main() {
  * 5: 2
  * 6: 8
  */
+void random4() {
+    Random r = new Random();
+    for (int i = 1; i <= 4; i++) {
+        // Generate random integers in range 1 to 10
+        int x = r.nextInt(1, 11);
+        System.out.println(x);
+    }
+}
 
 /*
  * 2.5 Even Numbers < n
@@ -91,10 +119,15 @@ void main() {
  * 10: 16
  * 11: 18
  */
+void even(int n) {
+    for (int i = 2; i < n; i += 2) {
+        System.out.println(i);
+    }
+}
 
 /*
  * 2.6 Powers of 2
- * Write a method to print out the powers of 2 from 21 up to 2n
+ * Write a method to print out the powers of 2 from 2^1 up to 2^n
  * 2.6.1 Example
  * 
  * 1: powers(8)
@@ -108,6 +141,11 @@ void main() {
  * 9: 128
  * 10: 256
  */
+void powers(int n) {
+    for (int i = 1; i <= n; i++) {
+        System.out.println(1L << i);
+    }
+}
 
 /*
  * 2.7 Are we there yet?
@@ -124,6 +162,28 @@ void main() {
  * 6: Yes
  * 7: Good!
  */
+void areWeThereYet() {
+    var scanner = new Scanner(System.in);
+    System.out.println("Are we there yet?");
+    var areWe = scanner.nextLine();
+
+    // while (!"Yes".equals(areWe)) {
+    // System.out.println("Are we there yet?");
+    // areWe = scanner.nextLine();
+    // }
+
+    if (!"Yes".equals(areWe)) {
+        // scanner.close(); // Kaboom
+        areWeThereYet();
+        // For some reason, if I close the
+        // scanner BEFORE the recursive call
+        // Scanner.nextLine won't work the next time...
+    } else {
+        System.out.println("Good!");
+    }
+
+    scanner.close();
+}
 
 /*
  * 2.8 Triangle
@@ -137,6 +197,15 @@ void main() {
  * 6: ****
  * 7: *****
  */
+void triangle() {
+    int n = 5; // Could be a parameter...
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) {
+            System.out.print("*");
+        }
+        System.out.println();
+    }
+}
 
 /*
  * 2.9 Table Square
@@ -152,6 +221,21 @@ void main() {
  * 7: | 3 | 6 | 9 | 12 |
  * 8: | 4 | 8 | 12 | 16 |
  */
+void tableSquare() {
+    int n = 4;
+    int m = 4;
+    Random r = new Random();
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (j == 0)
+                System.out.print("|");
+            int x = r.nextInt(1, 21);
+            System.out.print(" " + x + " |");
+        }
+        System.out.println();
+    }
+}
 
 /*
  * 2.10 Table Squares
@@ -169,3 +253,16 @@ void main() {
  * 8: | 5 | 10 | 15 | 20 | 25 | 30 |
  * 9: | 6 | 12 | 18 | 24 | 30 | 36 |
  */
+void tableSquares(int n) {
+    Random r = new Random();
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (j == 0)
+                System.out.print("|");
+            int x = r.nextInt(1, 21);
+            System.out.print(" " + x + " |");
+        }
+        System.out.println();
+    }
+}
